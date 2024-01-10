@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio Sesion</title>
+
+    <!-- Agrega estas líneas en la sección <head> de tu HTML -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { GoogleAuthProvider, FacebookAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyC4sH2ASZQsmCuZIKLaC6VM-Wmy6k8lorI",
+          authDomain: "login-410420.firebaseapp.com",
+          projectId: "login-410420",
+          storageBucket: "login-410420.appspot.com",
+          messagingSenderId: "156922708305",
+          appId: "1:156922708305:web:c4cee2f9653f0957ced370"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        // Obtén el objeto de autenticación
+        const auth = getAuth(app);
+
+        // Asigna los manejadores de eventos a los botones
+        document.getElementById('googleSignInButton').addEventListener('click', signInWithGoogle);
+        document.getElementById('facebookSignInButton').addEventListener('click', signInWithFacebook);
+
+        // Verificar el estado de autenticación
+        auth.onAuthStateChanged(function(user) {
+            if (user) {
+                // Usuario está autenticado
+                console.log("Usuario autenticado:", user);
+            } else {
+                // Usuario no está autenticado
+                console.log("Usuario no autenticado");
+            }
+        });
+
+        // Define las funciones después de que el DOM se ha cargado
+        async function signInWithGoogle() {
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log(result.user);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function signInWithFacebook() {
+            const provider = new FacebookAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log(result.user);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <button id="googleSignInButton">Iniciar sesión con Google</button>
+    <button id="facebookSignInButton">Iniciar sesión con Facebook</button>
+</body>
+</html>
