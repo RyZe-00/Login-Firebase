@@ -37,6 +37,7 @@
             if (user) {
                 // Usuario está autenticado
                 console.log("Usuario autenticado:", user);
+                updateUserInfo(user.displayName, user.email);
             } else {
                 // Usuario no está autenticado
                 console.log("Usuario no autenticado");
@@ -63,10 +64,19 @@
                 console.error(error);
             }
         }
+
+        // Actualiza el contenido HTML con la información del usuario
+        function updateUserInfo(name, email) {
+            document.getElementById('userInfo').innerHTML = `Nombre: ${name}<br>Correo electrónico: ${email}`;
+        }
     </script>
 </head>
 <body>
     <button id="googleSignInButton">Iniciar sesión con Google</button>
     <button id="facebookSignInButton">Iniciar sesión con Facebook</button>
+    
+    <!-- Elemento HTML para mostrar la información del usuario -->
+    <div id="userInfo"></div>
 </body>
 </html>
+
